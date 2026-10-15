@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.LibraryExtension
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -14,28 +13,22 @@ plugins {
     alias(libs.plugins.room)
 }
 
-configure<LibraryExtension> {
-    namespace = "app.pentastic"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    androidResources {
-        enable = true
-    }
-}
-
 kotlin {
-    compilerOptions {
-        optIn.add("kotlin.time.ExperimentalTime")
-    }
+    androidLibrary {
+        namespace = "app.pentastic"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
 
-    androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+
+        androidResources {
+            enable = true
+        }
+    }
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
     }
 
     jvm()
@@ -104,8 +97,6 @@ kotlin {
 }
 
 dependencies {
-    add("debugImplementation", compose.uiTooling)
-
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
