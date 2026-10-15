@@ -75,7 +75,7 @@ fun CommonInput(
                 .focusRequester(focusRequester),
             value = text,
             onValueChange = { if (it.length <= maxLength) onTextChange(it) },
-            cursorBrush = SolidColor(AppTheme.colors.cursor),
+            cursorBrush = SolidColor(AppTheme.colors.primaryText),
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Sentences
             ),

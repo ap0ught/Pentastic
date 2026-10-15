@@ -58,7 +58,7 @@ val DarkColors = AppColors(
     icon = Color(0xFFA8AFC2),
     hint = Color(0xFFA0A0A0),
     dragging = Color(0xFF1A1A1A),
-    cursor = Color(0xFFDBDEE7),
+    cursor = Color(0x66E0E0E0),
 )
 
 val LocalAppColors = staticCompositionLocalOf { LightColors }
@@ -139,19 +139,15 @@ fun AppTheme(
         surfaceTint = colors.primaryText,
         inverseSurface = if (darkTheme) LightColors.background else DarkColors.background,
         inverseOnSurface = if (darkTheme) LightColors.primaryText else DarkColors.primaryText,
-        error = colors.priorityText,
-        onError = colors.background,
-        errorContainer = colors.menuBackground,
-        onErrorContainer = colors.priorityText,
         outline = colors.icon,
         outlineVariant = colors.divider,
-        surfaceBright = colors.menuBackground,
-        surfaceDim = colors.indexBackground,
+        surfaceBright = if (darkTheme) Color(0xFF383838) else colors.background,
+        surfaceDim = if (darkTheme) colors.background else Color(0xFFD9DFE8),
         surfaceContainerLowest = colors.background,
         surfaceContainerLow = colors.indexBackground,
         surfaceContainer = colors.menuBackground,
-        surfaceContainerHigh = colors.menuBackground,
-        surfaceContainerHighest = colors.menuBackground,
+        surfaceContainerHigh = if (darkTheme) Color(0xFF242424) else Color(0xFFE9EDF4),
+        surfaceContainerHighest = if (darkTheme) Color(0xFF303030) else Color(0xFFE1E6EF),
     )
 
     // Update system bar style based on theme

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.Pentastic" parent="android:style/Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">#F9FBFF</item>
-        <item name="android:colorBackground">#F9FBFF</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
-    </style>
-</resources>

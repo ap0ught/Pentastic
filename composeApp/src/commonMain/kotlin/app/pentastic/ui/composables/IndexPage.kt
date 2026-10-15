@@ -911,7 +911,7 @@ fun EditPageNameDialog(
                         capitalization = KeyboardCapitalization.Sentences
                     ),
                     textStyle = TextStyle(color = colors.primaryText, fontSize = 16.sp),
-                    cursorBrush = SolidColor(colors.cursor),
+                    cursorBrush = SolidColor(colors.primaryText),
                     decorationBox = { innerTextField ->
                         Box(
                             modifier = Modifier
@@ -1021,7 +1021,7 @@ fun AddSubPageDialog(
                         capitalization = KeyboardCapitalization.Sentences
                     ),
                     textStyle = TextStyle(color = colors.primaryText, fontSize = 16.sp),
-                    cursorBrush = SolidColor(colors.cursor),
+                    cursorBrush = SolidColor(colors.primaryText),
                     decorationBox = { innerTextField ->
                         Box(
                             modifier = Modifier
