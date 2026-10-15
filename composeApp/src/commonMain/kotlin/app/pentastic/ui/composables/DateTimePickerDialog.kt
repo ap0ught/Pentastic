@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import app.pentastic.data.RepeatFrequency
 import app.pentastic.ui.theme.AppTheme
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month

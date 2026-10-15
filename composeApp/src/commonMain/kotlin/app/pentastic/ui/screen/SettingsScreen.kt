@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Palette
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -52,6 +54,7 @@ import pentastic.composeapp.generated.resources.Res
 
 @Composable
 fun SettingsScreen(
+    onNavigateBack: () -> Unit = {},
     onNavigateToTrash: () -> Unit,
 ) {
     val viewModel = koinViewModel<MainViewModel>()
@@ -70,16 +73,29 @@ fun SettingsScreen(
             .padding(top = captionBarHeight())
             .navigationBarsPadding()
     ) {
-        // Title
-        Text(
-            text = "Settings",
-            style = TextStyle(
-                color = colors.pageTitle,
-                fontSize = 36.sp,
-                fontFamily = FontFamily(Font(Res.font.Merriweather_Light))
-            ),
-            modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 6.dp)
-        )
+        // Top bar with Back button and Title
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 4.dp, top = 8.dp, bottom = 6.dp, end = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onNavigateBack) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = colors.pageTitle
+                )
+            }
+            Text(
+                text = "Settings",
+                style = TextStyle(
+                    color = colors.pageTitle,
+                    fontSize = 36.sp,
+                    fontFamily = FontFamily(Font(Res.font.Merriweather_Light))
+                )
+            )
+        }
 
         Spacer(Modifier.height(12.dp))
 

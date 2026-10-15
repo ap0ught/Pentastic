@@ -17,9 +17,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class)
 class ReminderBroadcastReceiver : BroadcastReceiver(), KoinComponent {
     private val database: PentasticDatabase by inject()
     private val reminderScheduler: ReminderScheduler by inject()
@@ -37,7 +35,7 @@ class ReminderBroadcastReceiver : BroadcastReceiver(), KoinComponent {
         // would race the DB write and next-cycle scheduling
         val pendingResult = goAsync()
         CoroutineScope(Dispatchers.IO).launch {
-            var notificationBody = "To-do reminder"
+            var notificationBody: String
 
             val note = database.noteDao.getNoteByUuid(noteUuid)
             if (note == null || note.deletedAt > 0) {
@@ -81,7 +79,7 @@ class ReminderBroadcastReceiver : BroadcastReceiver(), KoinComponent {
                 }
 
                 val updatedNote = note.copy(
-                    done = if (doneThisCycle) note.done else false,
+                    done = if (doneThisCycle) true else false,
                     orderAt = if (doneThisCycle) note.orderAt else now,
                     updatedAt = now,
                     // One-offs consume their time on delivery (0) so reschedulers
