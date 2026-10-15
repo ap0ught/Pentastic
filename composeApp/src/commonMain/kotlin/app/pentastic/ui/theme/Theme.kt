@@ -6,6 +6,8 @@ import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -49,14 +51,14 @@ val DarkColors = AppColors(
     background = Color.Black,
     indexBackground = Color(0xFF141414),
     primaryText = Color(0xFFDBDEE7),
-    pageTitle = Color(0xFF93593A),
-    priorityText = Color(0xFFFF1111),
+    pageTitle = Color(0xFFD99A7A),
+    priorityText = Color(0xFFFF6B6B),
     menuBackground = Color(0xFF1A1A1A),
     divider = Color(0xFF333333),
-    icon = Color(0xFF666666),
-    hint = Color(0xCD666666),
+    icon = Color(0xFFA8AFC2),
+    hint = Color(0xFFA0A0A0),
     dragging = Color(0xFF1A1A1A),
-    cursor = Color(0x66E0E0E0),
+    cursor = Color(0xFFDBDEE7),
 )
 
 val LocalAppColors = staticCompositionLocalOf { LightColors }
@@ -68,9 +70,7 @@ object AppTheme {
 }
 
 /**
- * M3 control colors drawn from [AppColors]. No colorScheme is set on MaterialTheme,
- * so any M3 component left with its defaults renders in the light-scheme purple —
- * wrong against this palette and barely visible on the dark menu background.
+ * M3 control colors drawn from [AppColors] to match the custom controls.
  */
 @Composable
 fun appRadioButtonColors(): RadioButtonColors {
@@ -116,12 +116,50 @@ fun AppTheme(
     }
 
     val colors = if (darkTheme) DarkColors else LightColors
+    val colorScheme = (if (darkTheme) darkColorScheme() else lightColorScheme()).copy(
+        primary = colors.primaryText,
+        onPrimary = colors.background,
+        primaryContainer = colors.indexBackground,
+        onPrimaryContainer = colors.primaryText,
+        inversePrimary = if (darkTheme) LightColors.primaryText else DarkColors.primaryText,
+        secondary = colors.pageTitle,
+        onSecondary = colors.background,
+        secondaryContainer = colors.menuBackground,
+        onSecondaryContainer = colors.pageTitle,
+        tertiary = colors.priorityText,
+        onTertiary = colors.background,
+        tertiaryContainer = colors.menuBackground,
+        onTertiaryContainer = colors.priorityText,
+        background = colors.background,
+        onBackground = colors.primaryText,
+        surface = colors.background,
+        onSurface = colors.primaryText,
+        surfaceVariant = colors.menuBackground,
+        onSurfaceVariant = colors.primaryText,
+        surfaceTint = colors.primaryText,
+        inverseSurface = if (darkTheme) LightColors.background else DarkColors.background,
+        inverseOnSurface = if (darkTheme) LightColors.primaryText else DarkColors.primaryText,
+        error = colors.priorityText,
+        onError = colors.background,
+        errorContainer = colors.menuBackground,
+        onErrorContainer = colors.priorityText,
+        outline = colors.icon,
+        outlineVariant = colors.divider,
+        surfaceBright = colors.menuBackground,
+        surfaceDim = colors.indexBackground,
+        surfaceContainerLowest = colors.background,
+        surfaceContainerLow = colors.indexBackground,
+        surfaceContainer = colors.menuBackground,
+        surfaceContainerHigh = colors.menuBackground,
+        surfaceContainerHighest = colors.menuBackground,
+    )
 
     // Update system bar style based on theme
     SystemBarEffect(isDarkTheme = darkTheme)
 
     CompositionLocalProvider(LocalAppColors provides colors) {
         MaterialTheme(
+            colorScheme = colorScheme,
             typography = interTypography(),
         ) {
             content()
